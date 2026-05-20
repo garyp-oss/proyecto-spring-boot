@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratorios</title>
+</head>
+<body>
+    <h1>Lista de Laboratorios</h1>
+
+    <form method="get" action="/web/laboratorios">
+        <input type="text" name="nombre" placeholder="Buscar por nombre"/>
+        <input type="text" name="pais" placeholder="Buscar por país"/>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <a href="/web/laboratorios/nueva">+ Nuevo Laboratorio</a>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>País</th>
+            <th>Web</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="lab : ${laboratorios}">
+            <td th:text="${lab.id}"></td>
+            <td th:text="${lab.nombre}"></td>
+            <td th:text="${lab.pais}"></td>
+            <td th:text="${lab.web}"></td>
+            <td>
+                <a th:href="@{/web/laboratorios/{id}(id=${lab.id})}">Ver</a>
+                <a th:href="@{/web/laboratorios/editar/{id}(id=${lab.id})}">Editar</a>
+                <form th:action="@{/web/laboratorios/borrar/{id}(id=${lab.id})}" method="post">
+                    <button type="submit">Borrar</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

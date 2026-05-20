@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Laboratorio</title>
+</head>
+<body>
+    <h1 th:text="${laboratorio.nombre}"></h1>
+    <p>País: <span th:text="${laboratorio.pais}"></span></p>
+    <p>Web: <span th:text="${laboratorio.web}"></span></p>
+
+    <h2>Medicamentos</h2>
+    <a th:href="@{/web/medicamentos/nueva}">+ Nuevo Medicamento</a>
+
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Principio Activo</th>
+            <th>Formato</th>
+            <th>Precio</th>
+            <th>Con Receta</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="med : ${medicamentos}">
+            <td th:text="${med.nombre}"></td>
+            <td th:text="${med.principioActivo}"></td>
+            <td th:text="${med.formato}"></td>
+            <td th:text="${med.precioEuros}"></td>
+            <td th:text="${med.conReceta}"></td>
+            <td>
+                <a th:href="@{/web/medicamentos/editar/{id}(id=${med.id})}">Editar</a>
+                <form th:action="@{/web/medicamentos/borrar/{id}(id=${med.id})}" method="post">
+                    <button type="submit">Borrar</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <a href="/web/laboratorios">Volver</a>
+</body>
+</html>

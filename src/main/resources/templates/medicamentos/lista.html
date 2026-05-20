@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Medicamentos</title>
+</head>
+<body>
+    <h1>Lista de Medicamentos</h1>
+
+    <form method="get" action="/web/medicamentos">
+        <input type="text" name="principioActivo" placeholder="Buscar por principio activo"/>
+        <label>Con receta:
+            <select name="conReceta">
+                <option value="">Todos</option>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+        </label>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <a href="/web/medicamentos/nueva">+ Nuevo Medicamento</a>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Principio Activo</th>
+            <th>Formato</th>
+            <th>Precio</th>
+            <th>Con Receta</th>
+            <th>Laboratorio</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="med : ${medicamentos}">
+            <td th:text="${med.id}"></td>
+            <td th:text="${med.nombre}"></td>
+            <td th:text="${med.principioActivo}"></td>
+            <td th:text="${med.formato}"></td>
+            <td th:text="${med.precioEuros}"></td>
+            <td th:text="${med.conReceta}"></td>
+            <td th:text="${med.laboratorio.nombre}"></td>
+            <td>
+                <a th:href="@{/web/medicamentos/editar/{id}(id=${med.id})}">Editar</a>
+                <form th:action="@{/web/medicamentos/borrar/{id}(id=${med.id})}" method="post">
+                    <button type="submit">Borrar</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <a href="/web/laboratorios">Ver Laboratorios</a>
+</body>
+</html>

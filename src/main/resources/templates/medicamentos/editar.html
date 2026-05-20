@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Medicamento</title>
+</head>
+<body>
+    <h1>Editar Medicamento</h1>
+
+    <form th:action="@{/web/medicamentos/editar/{id}(id=${medicamento.id})}" method="post">
+        <label>Nombre: <input type="text" name="nombre" th:value="${medicamento.nombre}"/></label><br/>
+        <label>Principio Activo: <input type="text" name="principioActivo" th:value="${medicamento.principioActivo}"/></label><br/>
+        <label>Formato: <input type="text" name="formato" th:value="${medicamento.formato}"/></label><br/>
+        <label>Precio (€): <input type="number" step="0.01" name="precioEuros" th:value="${medicamento.precioEuros}"/></label><br/>
+        <label>Con Receta:
+            <select name="conReceta">
+                <option value="true" th:selected="${medicamento.conReceta}">Sí</option>
+                <option value="false" th:selected="${!medicamento.conReceta}">No</option>
+            </select>
+        </label><br/>
+        <label>Laboratorio:
+            <select name="laboratorioId">
+                <option th:each="lab : ${laboratorios}"
+                        th:value="${lab.id}"
+                        th:text="${lab.nombre}"
+                        th:selected="${lab.id == medicamento.laboratorio.id}">
+                </option>
+            </select>
+        </label><br/>
+        <button type="submit">Guardar cambios</button>
+        <a href="/web/medicamentos">Cancelar</a>
+    </form>
+</body>
+</html>

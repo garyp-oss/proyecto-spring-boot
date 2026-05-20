@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Medicamento</title>
+</head>
+<body>
+    <h1>Nuevo Medicamento</h1>
+
+    <form action="/web/medicamentos/nueva" method="post">
+        <label>Nombre: <input type="text" name="nombre"/></label><br/>
+        <label>Principio Activo: <input type="text" name="principioActivo"/></label><br/>
+        <label>Formato: <input type="text" name="formato"/></label><br/>
+        <label>Precio (€): <input type="number" step="0.01" name="precioEuros"/></label><br/>
+        <label>Con Receta:
+            <select name="conReceta">
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+        </label><br/>
+        <label>Laboratorio:
+            <select name="laboratorioId">
+                <option th:each="lab : ${laboratorios}"
+                        th:value="${lab.id}"
+                        th:text="${lab.nombre}">
+                </option>
+            </select>
+        </label><br/>
+        <button type="submit">Guardar</button>
+        <a href="/web/medicamentos">Cancelar</a>
+    </form>
+</body>
+</html>

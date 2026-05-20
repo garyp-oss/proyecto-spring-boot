@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Laboratorio</title>
+</head>
+<body>
+    <h1>Editar Laboratorio</h1>
+
+    <form th:action="@{/web/laboratorios/editar/{id}(id=${laboratorio.id})}" method="post">
+        <label>Nombre: <input type="text" name="nombre" th:value="${laboratorio.nombre}"/></label><br/>
+        <label>País: <input type="text" name="pais" th:value="${laboratorio.pais}"/></label><br/>
+        <label>Web: <input type="text" name="web" th:value="${laboratorio.web}"/></label><br/>
+        <button type="submit">Guardar cambios</button>
+        <a href="/web/laboratorios">Cancelar</a>
+    </form>
+</body>
+</html>
